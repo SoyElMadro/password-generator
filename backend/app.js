@@ -7,8 +7,6 @@ const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-
 app.post('/api/generate-password', (req, res) => {
   const { length, includeUppercase, includeNumbers, includeSymbols } = req.body;
 
