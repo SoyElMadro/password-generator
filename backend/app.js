@@ -7,23 +7,17 @@ const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-const allowCors = (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Credentials', true);
+app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-    return;
+    return res.sendStatus(200);
   }
   next();
-};
-
-app.use(allowCors);
+});
 
 app.post('/api/generate-password', (req, res) => {
   const { length, includeUppercase, includeNumbers, includeSymbols } = req.body;
