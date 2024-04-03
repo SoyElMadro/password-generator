@@ -9,13 +9,17 @@ function App() {
   const [includeSymbols, setIncludeSymbols] = useState(true);
   const [notification, setNotification] = useState(null);
 
+  const API_URL = "https://.vercel.app"
+
   const generatePassword = async () => {
     try {
-      const response = await axios.post('https://password-generator-server-ten.vercel.app/api/generate-password', {
+      const response = await axios.post(API_URL + '/api/generate-password', {
         length,
         includeUppercase,
         includeNumbers,
         includeSymbols,
+      }, {
+        'content-type': "application/json"
       });
       setPassword(response.data.password);
     } catch (error) {
