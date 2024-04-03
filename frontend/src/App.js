@@ -11,7 +11,7 @@ function App() {
 
   const generatePassword = async () => {
     try {
-      const response = await axios.post('/api/generate-password', {
+      const response = await axios.post('https://password-generator-server-ten.vercel.app/api/generate-password', {
         length,
         includeUppercase,
         includeNumbers,
