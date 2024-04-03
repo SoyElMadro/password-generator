@@ -8,10 +8,12 @@ function App() {
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(true);
   const [notification, setNotification] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const API_URL = "https://password-generator-server-gamma.vercel.app";
 
   const generatePassword = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(API_URL + '/api/generate-password', {
         length,
@@ -22,8 +24,11 @@ function App() {
         'content-type': "application/json; charset=utf-8"
       });
       setPassword(response.data.password);
+      setLoading(false);
     } catch (error) {
       console.error('Error generating password:', error);
+      setNotification('Error generating password. Please try again later.');
+      setLoading(false);
     }
   };
 
@@ -79,9 +84,10 @@ function App() {
       </div>
       <button
         onClick={generatePassword}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors block mx-auto"
+        disabled={loading}
+        className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors block mx-auto ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
-        Generate Password
+        {loading ? 'Generating...' : 'Generate Password'}
       </button>
       {password && (
         <div className="mt-6 flex flex-col justify-center items-center">
@@ -96,7 +102,7 @@ function App() {
         </div>
       )}
       {notification && (
-        <div className="bg-green-500 text-white px-4 py-2 mt-4 rounded-md text-center">
+        <div className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md text-center">
           {notification}
         </div>
       )}
