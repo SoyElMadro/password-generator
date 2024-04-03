@@ -19,7 +19,7 @@ function App() {
         includeNumbers,
         includeSymbols,
       }, {
-        'content-type': "application/json"
+        'content-type': "application/json; charset=utf-8"
       });
       setPassword(response.data.password);
     } catch (error) {
