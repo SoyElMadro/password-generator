@@ -9,7 +9,7 @@ function App() {
   const [includeSymbols, setIncludeSymbols] = useState(true);
   const [notification, setNotification] = useState(null);
 
-  const API_URL = "https://.vercel.app"
+  const API_URL = "https://password-generator-server-seven.vercel.app";
 
   const generatePassword = async () => {
     try {

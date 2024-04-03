@@ -21,8 +21,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 app.post('/api/generate-password', (req, res) => {
   const { length, includeUppercase, includeNumbers, includeSymbols } = req.body;
 
